@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CDSS Sífilis">
+<meta name="theme-color" content="#1c1917">
+<title>CDSS Sífilis Congénita</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%231c1917' width='180' height='180' rx='40'/><text x='90' y='130' font-size='120' text-anchor='middle'>🩺</text></svg>">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22CDSS%20S%C3%ADfilis%20Cong%C3%A9nita%22%2C%22short_name%22%3A%22CDSS%20S%C3%ADfilis%22%2C%22description%22%3A%22Evaluaci%C3%B3n%20y%20manejo%20del%20neonato%20con%20sospecha%20de%20s%C3%ADfilis%20cong%C3%A9nita%22%2C%22start_url%22%3A%22.%2Findex.html%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231c1917%22%2C%22theme_color%22%3A%22%231c1917%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%3E%3Crect%20fill%3D'%25231c1917'%20width%3D'512'%20height%3D'512'%20rx%3D'100'%2F%3E%3Ctext%20x%3D'256'%20y%3D'390'%20font-size%3D'360'%20text-anchor%3D'middle'%3E%F0%9F%A9%BA%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --stone-50:#fafaf9;--stone-100:#f5f5f4;--stone-200:#e7e5e3;--stone-300:#d6d3d1;
+  --stone-400:#a8a29e;--stone-500:#78716c;--stone-600:#57534e;--stone-700:#44403c;
+  --stone-800:#292524;--stone-900:#1c1917;
+  --red-50:#fef2f2;--red-200:#fecaca;--red-600:#dc2626;--red-700:#b91c1c;--red-800:#991b1b;--red-900:#7f1d1d;
+  --amber-50:#fffbeb;--amber-200:#fde68a;--amber-600:#d97706;--amber-700:#b45309;--amber-800:#92400e;--amber-900:#78350f;
+  --sky-50:#f0f9ff;--sky-200:#bae6fd;--sky-600:#0284c7;--sky-900:#0c4a6e;
+  --emerald-50:#ecfdf5;--emerald-200:#a7f3d0;--emerald-600:#059669;--emerald-700:#047857;--emerald-800:#065f46;--emerald-900:#064e3b;
+  --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--stone-50);color:var(--stone-900);-webkit-font-smoothing:antialiased;line-height:1.5}
+
+/* ========== SPLASH ========== */
+#splash{
+  position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#1c1917 0%,#292524 30%,#dc2626 60%,#f59e0b 100%);
+  color:#fff;text-align:center;padding:2rem;transition:opacity .6s,visibility .6s;
+}
+#splash.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#splash .logo{font-size:4.5rem;margin-bottom:1rem;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+#splash h1{font-family:var(--serif);font-size:2rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:.5rem}
+#splash p{font-size:.875rem;opacity:.85;max-width:320px;line-height:1.6;margin-bottom:2rem}
+#splash .badges{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
+#splash .badge{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:.35rem .85rem;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+#splash button{
+  background:#fff;color:var(--stone-900);border:none;border-radius:12px;padding:.9rem 2.5rem;
+  font-size:1rem;font-weight:600;cursor:pointer;font-family:var(--sans);
+  box-shadow:0 4px 24px rgba(0,0,0,.25);transition:transform .15s
+}
+#splash button:active{transform:scale(.96)}
+#splash .footer{position:absolute;bottom:2rem;font-size:.65rem;opacity:.5;letter-spacing:.05em}
+
+/* ========== APP ========== */
+#app{display:none;max-width:720px;margin:0 auto;padding:1rem 1rem 3rem}
+#app.active{display:block}
+header{margin-bottom:1.5rem}
+.tag{display:flex;align-items:center;gap:.4rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.18em;color:var(--stone-500);margin-bottom:.35rem}
+header h1{font-family:var(--serif);font-size:1.75rem;font-weight:600;color:var(--stone-900);line-height:1.2}
+header p{font-size:.8rem;color:var(--stone-600);margin-top:.4rem;line-height:1.6}
+.progress{margin-bottom:1.25rem}
+.bars{display:flex;gap:5px;margin-bottom:.5rem}
+.bars div{height:4px;flex:1;border-radius:4px;background:var(--stone-200);transition:background .3s}
+.bars div.active{background:var(--stone-900)}
+.progress-info{display:flex;justify-content:space-between;font-size:.7rem;color:var(--stone-500)}
+.progress-info button{background:none;border:none;color:var(--stone-500);cursor:pointer;font-size:.7rem;font-family:var(--sans)}
+.progress-info button:hover{color:var(--stone-900)}
+
+.card{background:#fff;border-radius:16px;border:1px solid var(--stone-200);box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden}
+.card-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid var(--stone-100)}
+.card-icon{width:36px;height:36px;border-radius:8px;background:var(--stone-900);color:#fff;display:flex;align-items:center;justify-content:center}
+.card-header h2{font-family:var(--serif);font-size:1.15rem;font-weight:600}
+.card-body{padding:1.25rem}
+.card-footer{padding:.85rem 1.25rem;border-top:1px solid var(--stone-100);background:var(--stone-50);display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:none;border:none;font-size:.8rem;color:var(--stone-600);cursor:pointer;font-family:var(--sans)}
+.btn-back:disabled{opacity:.3;cursor:not-allowed}
+.btn-next{display:flex;align-items:center;gap:.4rem;background:var(--stone-900);color:#fff;border:none;border-radius:8px;padding:.6rem 1.25rem;font-size:.8rem;font-weight:500;cursor:pointer;font-family:var(--sans);transition:opacity .15s}
+.btn-next:disabled{opacity:.3;cursor:not-allowed}
+
+/* Form elements */
+.question{margin-bottom:1.25rem}
+.question:last-child{margin-bottom:0}
+.q-label{font-size:.8rem;font-weight:600;color:var(--stone-800);margin-bottom:.65rem}
+.options{display:flex;flex-direction:column;gap:.45rem}
+.radio-btn{
+  display:flex;align-items:flex-start;gap:.75rem;width:100%;text-align:left;
+  border:1px solid var(--stone-200);border-radius:10px;padding:.75rem 1rem;
+  font-size:.8rem;line-height:1.55;background:#fff;color:var(--stone-700);
+  cursor:pointer;transition:all .15s;font-family:var(--sans)
+}
+.radio-btn:hover{border-color:var(--stone-400);background:var(--stone-50)}
+.radio-btn.selected{border-color:var(--stone-900);background:var(--stone-900);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.radio-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--stone-300);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.radio-btn.selected .radio-dot{border-color:#fff}
+.radio-dot-inner{width:6px;height:6px;border-radius:50%;background:#fff;display:none}
+.radio-btn.selected .radio-dot-inner{display:block}
+
+.note-box{border-radius:10px;border:1px solid;padding:.75rem;font-size:.7rem;line-height:1.6;margin-top:.75rem}
+.note-amber{border-color:var(--amber-200);background:var(--amber-50);color:var(--amber-900)}
+.note-emerald{border-color:var(--emerald-200);background:var(--emerald-50);color:var(--emerald-900)}
+.note-red{border-color:var(--red-200);background:var(--red-50);color:var(--red-900)}
+.note-stone{border-color:var(--stone-200);background:var(--stone-50);color:var(--stone-600)}
+
+.select-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.select-grid label{font-size:.7rem;color:var(--stone-600);display:block;margin-bottom:.3rem}
+.select-grid select{
+  width:100%;padding:.6rem .75rem;font-size:.8rem;border:1px solid var(--stone-300);
+  border-radius:8px;background:#fff;font-family:var(--sans);color:var(--stone-900);
+  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2378716c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .75rem center
+}
+
+.titer-result{display:flex;align-items:flex-start;gap:.75rem;border-radius:10px;border:1px solid;padding:.85rem;margin-top:.75rem}
+.titer-icon{flex-shrink:0;margin-top:2px}
+.titer-desc{font-size:.8rem;font-weight:600;line-height:1.4}
+.titer-detail{font-size:.7rem;margin-top:.25rem;line-height:1.55;opacity:.9}
+
+.titer-na-btn{
+  display:block;width:100%;text-align:left;border:1px solid var(--stone-200);border-radius:10px;
+  padding:.65rem 1rem;font-size:.7rem;margin-top:.75rem;cursor:pointer;font-family:var(--sans);
+  background:#fff;color:var(--stone-600);transition:all .15s
+}
+.titer-na-btn.selected{border-color:var(--stone-900);background:var(--stone-900);color:#fff}
+
+/* ========== RESULT ========== */
+.result-banner{border-radius:12px;border:1px solid;padding:1.1rem;display:flex;align-items:flex-start;gap:.75rem}
+.result-icon-box{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.result-prob{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;opacity:.7;margin-bottom:.2rem}
+.result-label{font-family:var(--serif);font-size:1.1rem;font-weight:600;line-height:1.25}
+.result-desc{font-size:.78rem;margin-top:.4rem;line-height:1.55;opacity:.9}
+
+.section{border-radius:12px;border:1px solid var(--stone-200);background:#fff;padding:1.1rem;margin-top:1rem}
+.section-head{display:flex;align-items:center;gap:.45rem;margin-bottom:.65rem}
+.section-head svg{color:var(--stone-500)}
+.section-title{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--stone-600)}
+.section ul{list-style:none;padding:0}
+.section li{display:flex;align-items:flex-start;gap:.4rem;font-size:.8rem;color:var(--stone-700);margin-bottom:.35rem}
+.section li::before{content:"•";color:var(--stone-400);margin-top:0}
+.section .text-block{font-size:.8rem;color:var(--stone-700);white-space:pre-line;line-height:1.6}
+
+.dose-inputs{display:grid;gap:.75rem;margin-bottom:1rem}
+.dose-inputs.cols-2{grid-template-columns:1fr 1fr}
+.dose-inputs label{font-size:.7rem;color:var(--stone-600);display:block;margin-bottom:.25rem}
+.dose-inputs input{
+  width:100%;padding:.55rem .75rem;font-size:.8rem;border:1px solid var(--stone-300);
+  border-radius:8px;font-family:var(--sans)
+}
+.dose-card{border-radius:10px;background:var(--stone-900);color:var(--stone-100);padding:1rem;font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:.8rem}
+.dose-row{display:flex;justify-content:space-between;margin-bottom:.35rem}
+.dose-row .lbl{color:var(--stone-400)}
+.dose-row .val{font-weight:600;color:#fff}
+.dose-sep{border-top:1px solid var(--stone-700);margin:.45rem 0;padding-top:.45rem}
+.dose-note{font-size:.68rem;color:var(--stone-500);margin-top:.75rem;line-height:1.55}
+
+.notify-box{border-radius:10px;border:1px solid var(--stone-300);background:var(--stone-50);padding:1rem;margin-top:1rem;display:flex;align-items:flex-start;gap:.75rem}
+.notify-box .text{font-size:.8rem;color:var(--stone-700);line-height:1.55}
+
+.followup-extra{margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--stone-100);font-size:.7rem;color:var(--stone-500);line-height:1.55}
+
+footer.app-footer{margin-top:2rem;text-align:center;font-size:.65rem;color:var(--stone-400);line-height:1.7}
+
+/* SVG icons inline */
+svg.icon{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+svg.icon-sm{width:14px;height:14px}
+svg.icon-lg{width:20px;height:20px}
+</style>
+</head>
+<body>
+
+<!-- ========== SPLASH SCREEN ========== -->
+<div id="splash">
+  <div class="logo">🩺</div>
+  <h1>Sífilis Congénita</h1>
+  <p>Sistema de apoyo a la decisión clínica para evaluación y manejo del neonato</p>
+  <div class="badges">
+    <span class="badge">CSS Panamá</span>
+    <span class="badge">Neonatología</span>
+    <span class="badge">Offline</span>
+  </div>
+  <button onclick="startApp()">Iniciar evaluación</button>
+  <div class="footer">Dr. Jano Jaramillo · UCIN Nivel III CSS Panamá · v2.0</div>
+</div>
+
+<!-- ========== MAIN APP ========== -->
+<div id="app">
+  <header>
+    <div class="tag">
+      <svg class="icon-sm" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span>CDSS Neonatal · CSS Panam&aacute;</span>
+    </div>
+    <h1>S&iacute;filis Cong&eacute;nita</h1>
+    <p>Evaluaci&oacute;n y manejo del neonato hijo de madre con serolog&iacute;a reactiva. Basado en protocolos CSS 2024 y Hospital del Ni&ntilde;o Dr. Jos&eacute; Ren&aacute;n Esquivel 2017.</p>
+  </header>
+
+  <div class="progress">
+    <div class="bars" id="progressBars"></div>
+    <div class="progress-info">
+      <span id="stepLabel">Paso 1 de 4</span>
+      <button onclick="resetApp()">↺ Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" id="stepIcon"></div>
+      <h2 id="stepTitle"></h2>
+    </div>
+    <div class="card-body" id="stepContent"></div>
+    <div class="card-footer" id="stepFooter" style="display:none">
+      <button class="btn-back" id="btnBack" onclick="goBack()">← Atr&aacute;s</button>
+      <button class="btn-next" id="btnNext" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    Herramienta de apoyo cl&iacute;nico. No reemplaza el juicio cl&iacute;nico ni la consulta con Infectolog&iacute;a pedi&aacute;trica.
+    <br>Dr. Jano Jaramillo · UCIN Nivel III CSS Panam&aacute;
+  </footer>
+</div>
+
+<script>
+// ============ STATE ============
+let step = 0;
+const data = {
+  nonTrepMat:"",trepMat:"",matTxStatus:"",examBebe:"",
+  titerMat:"",titerBebe:"",titerRatio:"",pesoKg:"",edadDias:""
+};
+
+const titerOptions = [
+  {label:"No reactivo",value:"0"},{label:"1:1",value:"1"},{label:"1:2",value:"2"},
+  {label:"1:4",value:"4"},{label:"1:8",value:"8"},{label:"1:16",value:"16"},
+  {label:"1:32",value:"32"},{label:"1:64",value:"64"},{label:"1:128",value:"128"},
+  {label:"1:256",value:"256"},{label:"1:512",value:"512"},{label:"1:1024",value:"1024"}
+];
+
+const stepMeta = [
+  {title:"Serología materna",icon:'<svg class="icon" viewBox="0 0 24 24"><path d="M9 3v11"/><path d="M15 3v11"/><path d="M6 14a6 6 0 0012 0V3H6z"/></svg>'},
+  {title:"Tratamiento materno",icon:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'},
+  {title:"Evaluación del neonato",icon:'<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 10-16 0"/></svg>'},
+  {title:"Resultado y plan",icon:'<svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'}
+];
+
+// ============ ICONS ============
+const icons = {
+  alert:'<svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  check:'<svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  flask:'<svg class="icon-sm" viewBox="0 0 24 24"><path d="M9 3v11"/><path d="M15 3v11"/><path d="M6 14a6 6 0 0012 0V3H6z"/></svg>',
+  syringe:'<svg class="icon-sm" viewBox="0 0 24 24"><path d="M18 2l4 4"/><path d="M17 7l-10 10"/><path d="M9 15l-4 4"/><path d="M21 5l-7 7"/></svg>',
+  calendar:'<svg class="icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  activity:'<svg class="icon-sm" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+  file:'<svg class="icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'
+};
+
+// ============ TITER COMPARISON ============
+function computeTiterComparison(){
+  const mat=parseInt(data.titerMat), bebe=parseInt(data.titerBebe);
+  if(isNaN(mat)||isNaN(bebe)) return null;
+  if(bebe===0) return {ratio:"lt_4x",fold:0,dilutions:0,description:"Bebé no reactivo",detail:"El neonato no presenta títulos detectables de anticuerpos no treponémicos.",severity:"low"};
+  if(mat===0&&bebe>0) return {ratio:"ge_4x",fold:Infinity,dilutions:Infinity,description:"Bebé reactivo con madre no reactiva",detail:"Hallazgo altamente sospechoso. Se trata como ≥4× los títulos maternos.",severity:"high"};
+  const fold=bebe/mat, dilutions=Math.log2(fold);
+  if(fold>=4) return {ratio:"ge_4x",fold,dilutions,description:`Bebé ${fold}× > madre (${dilutions} diluciones por encima)`,detail:`Los títulos del neonato son ${fold} veces mayores que los maternos, equivalente a ${dilutions} ${dilutions===1?"dilución":"diluciones"} por encima. Diferencia ≥2 diluciones = alta probabilidad de infección.`,severity:"high"};
+  if(fold===1) return {ratio:"lt_4x",fold,dilutions,description:"Títulos iguales",detail:"Los títulos del neonato son iguales a los maternos. Compatible con transferencia pasiva de anticuerpos IgG.",severity:"low"};
+  if(fold<1) return {ratio:"lt_4x",fold,dilutions,description:`Bebé < madre (${(1/fold).toFixed(1)}× menor)`,detail:"Los títulos del neonato son menores que los maternos. Compatible con transferencia pasiva de anticuerpos IgG.",severity:"low"};
+  return {ratio:"lt_4x",fold,dilutions,description:`Bebé ${fold}× > madre (${dilutions} ${dilutions===1?"dilución":"diluciones"})`,detail:`Los títulos del neonato son ${fold} veces mayores que los maternos (${dilutions} ${dilutions===1?"dilución":"diluciones"}), pero <4× (no alcanzan el umbral de ≥2 diluciones).`,severity:"moderate"};
+}
+
+// ============ CLASSIFICATION ============
+function computeClassification(){
+  const {nonTrepMat,trepMat,matTxStatus,examBebe}=data;
+  const tc=computeTiterComparison();
+  const titerRatio=tc?tc.ratio:data.titerRatio;
+  if(!nonTrepMat) return null;
+  if(nonTrepMat==="reactive"&&trepMat==="nonreactive") return {level:"falso",label:"Falso positivo materno",color:"emerald",probability:"Descartado",description:"VDRL/RPR materno reactivo con prueba treponémica NO reactiva. No se requiere evaluación adicional del neonato.",workup:[],treatment:"No requiere tratamiento ni evaluación adicional.",followup:"Seguimiento pediátrico habitual."};
+  if(nonTrepMat!=="reactive"||!(trepMat==="reactive"||trepMat==="unavailable")) return null;
+  if(!matTxStatus) return null;
+
+  if(matTxStatus==="pre_pregnancy_stable"&&examBebe==="normal"){
+    return {level:"muy_baja",label:"Sífilis congénita descartada temporalmente",color:"emerald",probability:"Muy baja probabilidad",
+      description:"Tratamiento materno adecuado antes del embarazo (>1 año), con títulos bajos y estables, y evaluación neonatal normal. Se considera huella serológica de sífilis materna previamente tratada. El diagnóstico queda descartado de forma provisional, pendiente del seguimiento serológico del neonato.",
+      workup:["No se requieren estudios adicionales de rutina"],
+      treatment:"No amerita tratamiento inicial.\n\nExcepción: si el seguimiento ambulatorio es difícil o poco confiable, algunos expertos recomiendan Penicilina G benzatínica 50,000 U/kg IM dosis única como medida de seguridad.",
+      followup:"Descarte definitivo condicionado a seguimiento serológico. Repetir VDRL/RPR cuantitativo a los 3 meses (y continuar 6, 9, 12 meses si persiste detectable). Los títulos del neonato deben descender progresivamente hasta hacerse no reactivos, confirmando que se trataba de anticuerpos IgG maternos transferidos pasivamente. Si los títulos se mantienen estables, aumentan, o aparecen hallazgos clínicos, reclasificar y tratar."};
+  }
+
+  if(titerRatio==="ge_4x"||examBebe==="abnormal"){
+    const tc2=computeTiterComparison();
+    let desc;
+    if(titerRatio==="ge_4x"&&tc2&&tc2.severity==="high"){
+      desc=`Títulos: madre ${data.titerMat==="0"?"no reactivo":"1:"+data.titerMat}, neonato 1:${data.titerBebe} — ${tc2.description}.`;
+    } else if(titerRatio==="ge_4x"){
+      desc="Títulos de RPR/VDRL del neonato ≥4 veces (≥2 diluciones) mayores que los maternos.";
+    } else {
+      desc="Hallazgos clínicos compatibles con sífilis congénita al examen físico o evaluación.";
+    }
+    return {level:"alta",label:"Sífilis congénita probada o altamente posible",color:"red",probability:"Alta probabilidad de infección",description:desc,
+      workup:["Hemograma completo con diferencial","Punción lumbar: celularidad, proteínas y VDRL en LCR","Radiografía de huesos largos","Radiografía de tórax","Pruebas de función hepática (transaminasas, GGT, bilirrubinas)","Neuroimagen (USG cerebral y/o TAC)","Evaluación oftalmológica","Potenciales evocados auditivos (BERA)"],
+      treatment:"TRATAMIENTO RECOMENDADO (elegir uno):\n\n• Penicilina G sódica cristalina 50,000 U/kg/dosis IV\n   – ≤7 días de vida: cada 12 h\n   – >7 días de vida: cada 8 h\n   – Duración: 10 días (14 días si hay compromiso del SNC)\n   – Si se interrumpe >1 día, reiniciar el curso completo\n\n• ALTERNATIVA: Penicilina G procaínica 50,000 U/kg IM cada día por 10 días",
+      followup:"Seguimiento en Infectología pediátrica. VDRL cuantitativo a los 1, 3, 6, 9 y 12 meses. Si hubo compromiso de LCR, repetir punción lumbar cada 6 meses hasta normalización."};
+  }
+
+  if(matTxStatus==="inadequate"&&examBebe==="normal"&&(titerRatio==="lt_4x"||titerRatio==="")){
+    return {level:"moderada",label:"Sífilis congénita posible",color:"amber",probability:"Moderada probabilidad de infección",
+      description:"Madre sin tratamiento, inadecuadamente tratada, tratada <4 semanas antes del parto, o con evidencia/sospecha de reinfección o recaída. Bebé con examen físico normal y títulos no aumentados.",
+      workup:["Punción lumbar: celularidad, proteínas y VDRL en LCR","Hemograma completo con diferencial","Radiografía de huesos largos"],
+      treatment:"TRATAMIENTO RECOMENDADO:\n\n• Penicilina G sódica cristalina 50,000 U/kg/dosis IV\n   – ≤7 días: cada 12 h\n   – >7 días: cada 8 h\n   – Duración: 10 días\n\nALTERNATIVAS:\n• Penicilina G procaínica 50,000 U/kg IM cada día × 10 días\n• Penicilina G benzatínica 50,000 U/kg IM dosis única — SOLO si toda la evaluación (incluido LCR) es normal Y el seguimiento está garantizado.\n\n⚠ Las alternativas tienen menor nivel de evidencia: requieren seguimiento ambulatorio estricto.",
+      followup:"Seguimiento en Infectología pediátrica a los 1, 3, 6, 9 y 12 meses con VDRL cuantitativo."};
+  }
+
+  if(matTxStatus==="adequate_pregnancy"&&examBebe==="normal"&&(titerRatio==="lt_4x"||titerRatio==="")){
+    return {level:"baja",label:"Sífilis congénita menos probable",color:"sky",probability:"Baja probabilidad de infección",
+      description:"Tratamiento materno con penicilina ≥4 semanas antes del parto, sin evidencia de reinfección. Bebé asintomático con títulos no aumentados respecto a la madre.",
+      workup:["Evaluación clínica completa","No se requieren estudios adicionales de rutina si el examen es estrictamente normal"],
+      treatment:"OPCIONES:\n\n• Penicilina G benzatínica 50,000 U/kg IM dosis única\n\n• Alternativamente: seguimiento estrecho sin tratamiento con títulos estables/decrecientes de RPR/VDRL.",
+      followup:"Seguimiento clínico y serológico a los 1, 3, 6, 9 y 12 meses. Los títulos deben disminuir hasta hacerse no reactivos."};
+  }
+  return null;
+}
+
+// ============ DOSING ============
+function computeDosing(cls){
+  const peso=parseFloat(data.pesoKg), edad=parseInt(data.edadDias);
+  if(!peso) return null;
+  if(cls?.level==="baja") return {tipo:"benzatinica",dosisUnitaria:Math.round(50000*peso),peso};
+  if(isNaN(edad)) return null;
+  const d=Math.round(50000*peso);
+  const freq=edad<=7?"cada 12 horas":"cada 8 horas";
+  const dd=edad<=7?d*2:d*3;
+  return {tipo:"cristalina",dosisPenicilina:d,freq,dosisDiaria:dd,peso,edad};
+}
+
+// ============ RENDER ============
+function startApp(){
+  document.getElementById("splash").classList.add("hidden");
+  document.getElementById("app").classList.add("active");
+  render();
+}
+
+function resetApp(){
+  step=0;
+  Object.keys(data).forEach(k=>data[k]="");
+  render();
+}
+
+function goBack(){if(step>0){step--;render()}}
+function goNext(){if(canAdvance()){step++;render()}}
+function set(k,v){data[k]=v;render()}
+
+function canAdvance(){
+  if(step===0) return data.nonTrepMat==="nonreactive"||(data.nonTrepMat==="reactive"&&!!data.trepMat);
+  if(step===1) return !!data.matTxStatus;
+  if(step===2) return !!data.examBebe&&(computeTiterComparison()!==null||data.titerRatio==="unknown");
+  return false;
+}
+
+function radioHTML(name,value,label){
+  const sel=data[name]===value?"selected":"";
+  return `<button class="radio-btn ${sel}" onclick="set('${name}','${value}')"><div class="radio-dot"><div class="radio-dot-inner"></div></div><div>${label}</div></button>`;
+}
+
+function renderStep0(){
+  let h=`<div class="question"><div class="q-label">VDRL / RPR materno (prueba disponible en CSS)</div><div class="options">`;
+  h+=radioHTML("nonTrepMat","reactive","Reactivo");
+  h+=radioHTML("nonTrepMat","nonreactive","No reactivo");
+  h+=`</div></div>`;
+
+  if(data.nonTrepMat==="reactive"){
+    h+=`<div class="question"><div class="q-label">Prueba treponémica materna (TP-PA, FTA-ABS, MHA-TP, TP-EIA)</div><div class="options">`;
+    h+=radioHTML("trepMat","reactive","Reactiva (confirmada)");
+    h+=radioHTML("trepMat","nonreactive","No reactiva (descarta sífilis — falso positivo)");
+    h+=radioHTML("trepMat","unavailable",`<strong>No disponible / pendiente</strong> — no se realiza en esta instalación, referida a otro centro o resultado no documentado.`);
+    h+=`</div></div>`;
+    h+=`<div class="note-box note-amber"><strong>Nota operativa CSS:</strong> en las instalaciones de CSS solo se realiza VDRL/RPR. La prueba treponémica confirmatoria habitualmente se procesa en otro centro (ej. Hospital Santo Tomás). Si no está disponible al momento del parto, se asume sífilis materna y se procede a evaluar al neonato como si estuviese confirmada, hasta obtener el resultado.</div>`;
+  }
+  if(data.nonTrepMat==="nonreactive"){
+    h+=`<div class="note-box note-emerald">Sin evidencia serológica de sífilis materna. No procede evaluación por sífilis congénita.</div>`;
+  }
+  return h;
+}
+
+function renderStep1(){
+  let h=`<div class="question"><div class="q-label">Estado del tratamiento materno durante o antes del embarazo</div><div class="options">`;
+  h+=radioHTML("matTxStatus","inadequate",`<strong>Escenario 1:</strong> Sin tratamiento, no documentado, &lt;4 semanas antes del parto, sospecha/evidencia de reinfección, aumento ≥4× de títulos maternos, o pareja con sífilis reciente.`);
+  h+=radioHTML("matTxStatus","adequate_pregnancy",`<strong>Escenario 2:</strong> Tratamiento materno con penicilina ≥4 semanas antes del parto, sin evidencia de reinfección/recaída.`);
+  h+=radioHTML("matTxStatus","pre_pregnancy_stable",`<strong>Escenario 3:</strong> Tratamiento adecuado antes del embarazo, con títulos bajos y estables (VDRL ≤1:2 o RPR ≤1:4 pasado 1 año del tratamiento) o negativos.`);
+  h+=`</div></div>`;
+  return h;
+}
+
+function renderStep2(){
+  let h=`<div class="question"><div class="q-label">Examen físico y evaluación del recién nacido</div><div class="options">`;
+  h+=radioHTML("examBebe","normal",`<strong>Normal</strong> — sin hepatoesplenomegalia, lesiones mucocutáneas, rinorrea, linfadenopatías, pseudoparálisis, rash, ictericia patológica u otros estigmas.`);
+  h+=radioHTML("examBebe","abnormal",`<strong>Anormal</strong> — uno o más hallazgos compatibles: hepatoesplenomegalia, rinorrea, lesiones mucocutáneas, pseudoparálisis de Parrot, rash palmoplantar, anemia hemolítica, trombocitopenia, neumonía alba, osteocondritis, edema, ictericia patológica.`);
+  h+=`</div></div>`;
+
+  // Titer selectors
+  h+=`<div class="question"><div class="q-label">Títulos no treponémicos (VDRL o RPR) — tomados en paralelo, misma prueba</div>`;
+  h+=`<div class="select-grid"><div><label>Madre</label><select onchange="set('titerMat',this.value)"><option value="">Seleccionar…</option>`;
+  titerOptions.forEach(o=>{h+=`<option value="${o.value}"${data.titerMat===o.value?" selected":""}>${o.label}</option>`});
+  h+=`</select></div><div><label>Neonato</label><select onchange="set('titerBebe',this.value)"><option value="">Seleccionar…</option>`;
+  titerOptions.forEach(o=>{h+=`<option value="${o.value}"${data.titerBebe===o.value?" selected":""}>${o.label}</option>`});
+  h+=`</select></div></div>`;
+
+  const tc=computeTiterComparison();
+  if(tc){
+    const colors={high:{bg:"var(--red-50)",border:"var(--red-200)",text:"var(--red-900)",icon:icons.alert},moderate:{bg:"var(--amber-50)",border:"var(--amber-200)",text:"var(--amber-900)",icon:icons.check},low:{bg:"var(--emerald-50)",border:"var(--emerald-200)",text:"var(--emerald-900)",icon:icons.check}};
+    const c=colors[tc.severity];
+    h+=`<div class="titer-result" style="background:${c.bg};border-color:${c.border};color:${c.text}"><div class="titer-icon">${c.icon}</div><div><div class="titer-desc">${tc.description}</div><div class="titer-detail">${tc.detail}</div></div></div>`;
+  }
+
+  if(!tc){
+    h+=`<button class="titer-na-btn ${data.titerRatio==="unknown"?"selected":""}" onclick="set('titerRatio',data.titerRatio==='unknown'?'':'unknown')">Títulos no disponibles al momento / pendientes</button>`;
+  }
+  h+=`</div>`;
+  h+=`<div class="note-box note-stone"><strong>Nota clínica:</strong> un cambio de 2 diluciones = 4× los títulos. Use siempre la misma prueba no treponémica (VDRL o RPR) para comparar madre e hijo.</div>`;
+  return h;
+}
+
+function renderStep3(){
+  const cls=computeClassification();
+  if(!cls) return `<div style="text-align:center;padding:2rem;color:var(--stone-500);font-size:.85rem">Complete los pasos anteriores para obtener la clasificación de riesgo.</div>`;
+
+  const colorMap={
+    red:{bg:"var(--red-50)",border:"var(--red-200)",text:"var(--red-900)",accent:"var(--red-600)"},
+    amber:{bg:"var(--amber-50)",border:"var(--amber-200)",text:"var(--amber-900)",accent:"var(--amber-600)"},
+    sky:{bg:"var(--sky-50)",border:"var(--sky-200)",text:"var(--sky-900)",accent:"var(--sky-600)"},
+    emerald:{bg:"var(--emerald-50)",border:"var(--emerald-200)",text:"var(--emerald-900)",accent:"var(--emerald-600)"}
+  };
+  const c=colorMap[cls.color];
+  const bannerIcon=cls.level==="alta"?icons.alert:icons.check;
+
+  let h=`<div class="result-banner" style="background:${c.bg};border-color:${c.border};color:${c.text}">
+    <div class="result-icon-box" style="background:${c.accent}">${bannerIcon}</div>
+    <div><div class="result-prob">${cls.probability}</div><div class="result-label">${cls.label}</div><div class="result-desc">${cls.description}</div></div></div>`;
+
+  // Workup
+  if(cls.workup.length>0){
+    h+=`<div class="section"><div class="section-head">${icons.flask}<span class="section-title">Estudios diagnósticos recomendados</span></div><ul>`;
+    cls.workup.forEach(w=>{h+=`<li>${w}</li>`});
+    h+=`</ul></div>`;
+  }
+
+  // Treatment
+  h+=`<div class="section"><div class="section-head">${icons.syringe}<span class="section-title">Tratamiento</span></div><div class="text-block">${cls.treatment}</div></div>`;
+
+  // Dosing calculator
+  if(cls.level!=="falso"&&cls.level!=="muy_baja"){
+    const isBaja=cls.level==="baja";
+    const dTitle=isBaja?"Calculadora de dosis (Penicilina G benzatínica)":"Calculadora de dosis (Penicilina G cristalina)";
+    h+=`<div class="section"><div class="section-head">${icons.activity}<span class="section-title">${dTitle}</span></div>`;
+    h+=`<div class="dose-inputs ${isBaja?"":"cols-2"}"><div><label>Peso (kg)</label><input type="number" step="0.01" value="${data.pesoKg}" oninput="set('pesoKg',this.value)" placeholder="Ej: 3.2"></div>`;
+    if(!isBaja) h+=`<div><label>Edad (días de vida)</label><input type="number" value="${data.edadDias}" oninput="set('edadDias',this.value)" placeholder="Ej: 2"></div>`;
+    h+=`</div>`;
+
+    const dos=computeDosing(cls);
+    if(dos?.tipo==="benzatinica"){
+      h+=`<div class="dose-card"><div class="dose-row"><span class="lbl">Dosis única:</span><span class="val">${dos.dosisUnitaria.toLocaleString()} U IM</span></div><div class="dose-row"><span class="lbl">Vía:</span><span class="val">Intramuscular</span></div><div class="dose-sep"></div><div class="dose-row"><span class="lbl">Esquema:</span><span class="val">Dosis única</span></div></div>`;
+    }
+    if(dos?.tipo==="cristalina"){
+      h+=`<div class="dose-card"><div class="dose-row"><span class="lbl">Dosis unitaria:</span><span class="val">${dos.dosisPenicilina.toLocaleString()} U IV</span></div><div class="dose-row"><span class="lbl">Frecuencia:</span><span class="val">${dos.freq}</span></div><div class="dose-row"><span class="lbl">Dosis diaria total:</span><span class="val">${dos.dosisDiaria.toLocaleString()} U</span></div><div class="dose-sep"></div><div class="dose-row"><span class="lbl">Duración:</span><span class="val">10 días (14 si SNC+)</span></div></div>`;
+    }
+
+    if(isBaja){
+      h+=`<div class="dose-note">Penicilina G benzatínica 50,000 U/kg IM dosis única. Administrar en una sola aplicación intramuscular profunda. Asegurar seguimiento serológico estrecho.</div>`;
+    } else {
+      h+=`<div class="dose-note">Penicilina G sódica cristalina 50,000 U/kg/dosis IV. ≤7 días: c/12 h · >7 días: c/8 h. Si el tratamiento se interrumpe >1 día, reiniciar el curso completo.</div>`;
+    }
+    h+=`</div>`;
+  }
+
+  // Follow-up
+  h+=`<div class="section"><div class="section-head">${icons.calendar}<span class="section-title">Seguimiento</span></div><div style="font-size:.8rem;color:var(--stone-700);line-height:1.55">${cls.followup}</div>`;
+  if(cls.level!=="falso"){
+    h+=`<div class="followup-extra"><strong style="color:var(--stone-700)">Cronograma estándar:</strong> evaluación clínica + VDRL cuantitativo a los 1, 3, 6, 9 y 12 meses. Los títulos deben disminuir; si persisten detectables a los 6 meses en no tratados, o suben en los tratados, considerar retratamiento con Penicilina G × 10 días. Las pruebas treponémicas no se usan en el seguimiento (pueden permanecer positivas hasta 15 meses por IgG materna pasiva).</div>`;
+  }
+  h+=`</div>`;
+
+  // Notification
+  if(cls.level==="alta"||cls.level==="moderada"||cls.level==="baja"){
+    h+=`<div class="notify-box">${icons.file}<div class="text"><strong style="color:var(--stone-900)">Notificación obligatoria.</strong> La sífilis congénita es de notificación obligatoria en Panamá (Decreto Ejecutivo 1617/2014). Reportar a Epidemiología local. CIE-10: <span style="font-family:monospace">A50.0</span> (sintomática), <span style="font-family:monospace">A50.1</span> (latente), <span style="font-family:monospace">A50.9</span> (no especificada).</div></div>`;
+  }
+
+  return h;
+}
+
+function render(){
+  // Progress bars
+  const barsEl=document.getElementById("progressBars");
+  barsEl.innerHTML=stepMeta.map((_,i)=>`<div class="${i<=step?"active":""}"></div>`).join("");
+  document.getElementById("stepLabel").textContent=`Paso ${step+1} de ${stepMeta.length}`;
+
+  // Step header
+  document.getElementById("stepIcon").innerHTML=stepMeta[step].icon;
+  document.getElementById("stepTitle").textContent=stepMeta[step].title;
+
+  // Content
+  const content=document.getElementById("stepContent");
+  if(step===0) content.innerHTML=renderStep0();
+  else if(step===1) content.innerHTML=renderStep1();
+  else if(step===2) content.innerHTML=renderStep2();
+  else content.innerHTML=renderStep3();
+
+  // Footer
+  const footer=document.getElementById("stepFooter");
+  if(step<3){
+    footer.style.display="flex";
+    document.getElementById("btnBack").disabled=step===0;
+    document.getElementById("btnNext").disabled=!canAdvance();
+  } else {
+    footer.style.display="none";
+  }
+}
+
+// ============ SERVICE WORKER ============
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+
+// Init — if splash was already dismissed (e.g. back nav), show app
+window.addEventListener("DOMContentLoaded",()=>{
+  // Keep splash visible by default
+});
+</script>
+</body>
+</html>
